@@ -1,2 +1,2 @@
-# Word-Guess-Game-
+# Psychic-Game-
 Homework 3
