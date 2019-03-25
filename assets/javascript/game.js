@@ -1,5 +1,49 @@
 
+//THIS BEGINS THE CODE FOR HORROR HANGMAN GAME
+// the array of movie title options 
+var movies=[
+    "scream",
+    "friday the 13th",
+    "chucky",
+    "it",
+    "halloween",
+    "house of wax",
+];
+// this code grabs a movie at random
+computerGuess = movies[Math.floor(Math.random() * movies.length)];
 
+// this code is creating an empty array and filling it with underscores to match the number of letters of the word 
+var answerArray=[];
+for (var i=0; i<movies.length;i++) {
+    answerArray[i]="_";
+}
+
+var remainingLetter=movies.length;
+
+//keeps looping as long as the remaining letter expression remains true 
+//the body of the loop will have to update remainingLetter for every correct guess the player makes 
+//once player has guessed all letters of the word remaining letter will be at 0 and the loop will end 
+//all game code will go in here 
+for (remainingLetter > 0) {
+    var guess=prompt("guess a letter to start slaying or leave now!");
+    if (guess === null){
+        break;
+    }
+    else if (guess.length!==1){
+    alert("one stab at a time!");
+    }
+    else {}
+
+}
+
+
+
+
+
+
+
+
+// THE CODE BELOW IS FOR THE LETTER GUESS GAME 
   <div>
  
   <p id="userchoice"></p>
