@@ -31,6 +31,10 @@ var guessesSofar=[];
 var wins=[];
 var loses=[];
 
+//DOM MANIPULATION BEGINS HERE
+
+var domAnswerArray=document.getElementsByClassName("underscore")
+
 
 
 
@@ -44,15 +48,22 @@ if (computerGuess.indexOf(keyword)>-1) {
 //adds to the win array
     wins.push(keyword);
     console.log(wins);
-// trying to replace underscore with correct answer
-    answerArray[keyword.indexOf(movies)]=movies; 
+// trying to replace underscore with correct letter from players
+    answerArray[computerGuess.indexOf(keyword)]= keyword; 
+    console.log(answerArray);
+
+    if(answerArray.join("")=computerGuess){
+        alert("You Got Lucky!");
+    }
 }
 
 else {
 //adds to the loses array
-    loses.push(keyword);
-    console.log(loses);
+    guessesSofar.push(keyword);
+    console.log(guessesSofar);
 }
 
 });
 
+
+domAnswerArray[0].innerHTML= answerArray().join(" ");
