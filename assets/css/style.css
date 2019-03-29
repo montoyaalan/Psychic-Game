@@ -1,5 +1,8 @@
+
+
 header{
     border: 3px solid black;
+    background-color: black;
     font-size: 20px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-align: center;
@@ -12,11 +15,16 @@ header{
 .underscore {
     border: 3px solid black;
     font-size: 70px;
+
     text-align: center;
     margin: 0 auto;
-     height: 130px;
+     height: 160px;
      width: 60%;
 
+}
+
+#underscore {
+    color: crimson;
 }
 
 .guesses-so-far{
@@ -53,4 +61,28 @@ header{
     margin: 15px auto;
      height: 100px;
      width: 30%;
+}
+
+#h {
+    color: crimson;
+}
+#hm {
+    color: crimson;
+}
+
+
+#guesses-so-far{
+    color: crimson;
+}
+
+#guesses-left{
+    color: crimson;
+}
+
+#wins{
+    color: crimson;
+}
+
+#loses{
+    color: crimson;
 }

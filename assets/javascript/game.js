@@ -1,6 +1,7 @@
-// ALL VARIABLES on top
+//GLOBAL VARIABLES
+//---------------------------------------
 // Used to record how many times a letter can be pressed
-var letters = ['a','b','c',
+var doubleWord = ['a','b','c',
 				  'd','e','f',
 				  'g','h','i',
 				  'j','k','l',
@@ -9,54 +10,49 @@ var letters = ['a','b','c',
 				  's','t','u',
 				  'v','w','x',
 				  'y','z'];
-//THIS BEGINS THE CODE FOR HORROR HANGMAN GAME
-// the array of movie title options 
-var movies=[
-    "scream",
-    "friday the 13th",
-    "childs play",
-    "it",
-    "halloween",
-    "house of wax",
-    "prom night",
-    "a nightmare on elms treet",
-];
-
-
-var computerGuess="";
-var underScore=[];
-var underscoresInWord=0;
-var lettersInWord=[];
-var rightLetter=[];
-var guessesSofar=[];
-var guessesLeft=10;
-var wins=0;
-var loses=0;
-var correctLetter=0;
-
-
-
+//Holds the all the words
+var movies =[ "scream",
+"fridaythethirteenth",
+"childsplay",
+"it",
+"halloween",
+"houseofwax",
+"promnight",
+"anightmareonelmstreet",];
+//Holds choosenWord
+var choosenWord = "";
+//Holds letters in word
+var lettersInWord = [];
+//Holds number of blanks in word
+var numBlanks = 0;
+//Holds Blanks and successful guesses
+var blanksAndSuccesses =[];
+//Holds Wrong guesses
+var wrongLetters = [];
+//Counters
+var winCount = 0;
+var loseCount = 0;
+var guessesLeft = 10;
+var rightGuessCounter = 0;
+//FUNCTIONS
+//----------------------------------------
 function reset()
 {
-    // this code grabs a movie at random
-        var randMov =Math.floor(Math.random() * movies.length);
-        var computerGuess= movies[randMov];
-        console.log(computerGuess);
-        //makes the movie chosen into separate letters
-        lettersInWord=computerGuess.split("");
-        console.log(lettersInWord);
-
-        //should display the correct amount of underscores
-        underscoresInWord = lettersInWord.length;
-
+	//Chooses word randombly from the wordBank
+	choosenWord = movies[Math.floor(Math.random() * movies.length)];
+	//Splits the choosen word into individual letters
+	lettersInWord = choosenWord.split('');
+	//Get the number of blanks
+	numBlanks = lettersInWord.length;
+	
 	//RESET
 	//===========================================================
 	letterGuessed = 0;
-	correctLetter = 0;
+	rightGuessCounter = 0;
 	guessesLeft = 10;
-	guessesSofar =[];
-	rightLetter =[];
-	letters = ['a','b','c',
+	wrongLetters =[];
+	blanksAndSuccesses =[];
+	doubleWord = ['a','b','c',
 					  'd','e','f',
 					  'g','h','i',
 					  'j','k','l',
@@ -68,26 +64,22 @@ function reset()
 	test=false;
 	startGame();
 }
-// second part of example coding 
-
 function startGame()
 {
-    var randMov =Math.floor(Math.random() * movies.length);
-    var computerGuess= movies[randMov];
-    console.log(computerGuess);
-
-    lettersInWord = computerGuess.split("");
-    console.log(lettersInWord);
-
-    underscoresInWord = lettersInWord.length;
+	//Chooses word randombly from the wordBank
+	choosenWord = movies[Math.floor(Math.random() * movies.length)];
+	//Splits the choosen word into individual letters
+	lettersInWord = choosenWord.split('');
+	//Get the number of blanks
+	numBlanks = lettersInWord.length;
 	
 	//RESET
 	//===========================================================
-	correctLetter = 0;
+	rightGuessCounter = 0;
 	guessesLeft = 10;
-    guessesSofar =[];
-	rightLetter =[];
-	letters = ['a','b','c',
+	wrongLetters =[];
+	blanksAndSuccesses =[];
+	doubleWord = ['a','b','c',
 					  'd','e','f',
 					  'g','h','i',
 					  'j','k','l',
@@ -97,81 +89,82 @@ function startGame()
 					  'v','w','x',
 					  'y','z'];
 
-	// this code is creating an empty array and filling it with underscores to match the number of letters of the word 
-	for(var i = 0; i<underscoresInWord; i++)
+	//Populate blanks
+	for(var i = 0; i< numBlanks; i++)
 	{
-		rightLetter.push("_");
-		document.getElementById("underscore").innerHTML = rightLetter;
+		blanksAndSuccesses.push('_');
+		document.getElementById("underscore").innerHTML = blanksAndSuccesses;
 	}
 
-	// changing everything on the HTML page 
-	document.getElementById("underscore").innerHTML = rightLetter.join(" ");
+	//Changes HTML 
+	document.getElementById("underscore").innerHTML = blanksAndSuccesses.join(' ');
 	document.getElementById("guesses-left").innerHTML = guessesLeft;
-	document.getElementById("wins").innerHTML = wins;
-	document.getElementById("loses").innerHTML = loses;
-	document.getElementById("guesses-so-far").innerHTML = guessesSofar;
+	document.getElementById("wins").innerHTML = winCount;
+	document.getElementById("loses").innerHTML = loseCount;
+	document.getElementById("guesses-so-far").innerHTML = wrongLetters;
 	// Testing / Debugging
-	console.log(underscoresInWord);
-	console.log(rightLetter);
+	console.log(choosenWord);
+	console.log(lettersInWord);
+	console.log(numBlanks);
+	console.log(blanksAndSuccesses);
 }
 
-function letsplay(userKey)
+function compareLetters(userKey)
 {
 				console.log('WORKING!');
 				//If user key exist in choosen word then perform this function 
-				if(computerGuess.indexOf(userKey) > -1)
+				if(choosenWord.indexOf(userKey) > -1)
 				{
 					//Loops depending on the amount of blanks 
-					for(var i = 0; i < underscoresInWord; i++)
+					for(var i = 0; i < numBlanks; i++)
 					{
 						//Fills in right index with user key
 						if(lettersInWord[i] === userKey)
 						{
-							correctLetter++;
-							rightLetter[i] = userKey;
-							document.getElementById("underscore").innerHTML = rightLetter.join(" ");
+							rightGuessCounter++;
+							blanksAndSuccesses[i] = userKey;
+							document.getElementById("underscore").innerHTML = blanksAndSuccesses.join(' ');
 						}	
 					}
 					//Test / Debug
-					console.log(rightLetter);
+					console.log(blanksAndSuccesses);
 				}
-				//this is the code for what happens when they press the incorrect key
+				//Wrong Keys
 				else
 				{
-					guessesSofar.push(userKey);
-                    guessesLeft--;
-                    
-
+					wrongLetters.push(userKey);
+					guessesLeft--;
 					//Changes HTML
 					document.getElementById("guesses-left").innerHTML = guessesLeft;
-					document.getElementById("guesses-so-far").innerHTML = guessesSofar;
-				
+					document.getElementById("guesses-so-far").innerHTML = wrongLetters;
+					//Test / Debug
+					console.log('Wrong Letters = ' + wrongLetters);
+					console.log('Guesses left are ' + guessesLeft);
 				}
 			
 			
 		
 }
-function scores()
+function winLose()
 {
 	// When number blanks if filled with right words then you win
-	if(correctLetter === underscoresInWord)
+	if(rightGuessCounter === numBlanks)
 	{
 		//Counts Wins 
-		wins++;
+		winCount++;
 		//Changes HTML
-		document.getElementById("wins").innerHTML = wins;
-        alert("YOU GOT LUCKY!");
-        // THIS CODE WILL RESET THE GAME 
+		document.getElementById("wins").innerHTML = winCount;
+		alert("You Got Lucky! It Won't Happen Again!");
 		reset();
 	}
-	// when your number of guesses runs out
+	// When number of Guesses reaches 0 then You lose
 	else if(guessesLeft === 0)
 	{
-		//will add to the loses
-		loses++;
+		//Counts losses
+		loseCount++;
 		//Changes HTML
-		document.getElementById("loses").innerHTML = loses;
-		alert("Looks like you didn't survive in the end!");
+		document.getElementById("loses").innerHTML = loseCount;
+		alert("You Didn't Survive This Slasher Film");
 		reset();
 	}
 }
@@ -184,24 +177,21 @@ startGame();
 document.onkeyup = function(event)
 {
 	test = true;
-	var player = event.key;
-	for(var i = 0; i < letters.length; i++)
+	var letterGuessed = event.key;
+	for(var i = 0; i < doubleWord.length; i++)
 	{	
-		if(player === letters[i] && test === true)
+		if(letterGuessed === doubleWord[i] && test === true)
 		{
-			var spliceDword = letters.splice(i,1);
+			var spliceDword = doubleWord.splice(i,1);
 			//Test / Debug
-			console.log('Double word is = ' + letters[i])
+			console.log('Double word is = ' + doubleWord[i])
 			console.log('Spliced Word is = ' + spliceDword);
 
-			letsplay(player);
-			scores();
+			compareLetters(letterGuessed);
+			winLose();
 		}
 	}		
 		
 }
-
-
-
 
 
