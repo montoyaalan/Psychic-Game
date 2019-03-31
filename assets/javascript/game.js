@@ -166,13 +166,14 @@ function compareLetters(userKey)
 							document.getElementById("underscore").innerHTML = blanksAndWins.join(" ");
 						}	
 					}
-					//TESTING
+				
 					console.log(blanksAndWins);
 				}
 				//OR IF THE PLAYERS INPUT (userKey) IS THE WRONG LETTERS (guessesSoFar) IT WILL RUN THIS FUNCTION THAT PUSHES THE PLAYERS INPUT TO GUESSES SO FAR AND
 				// ALSO WILL DEDUCT ONE FROM THE AMOUNT OF GUESSES LEFT (guessesLeft)
 				else
 				{
+					//PUSHES THE INCORRECT LETTER FROM PLAYER INTO THE GUESSES SO FAR ARRAY
 					guessesSoFar.push(userKey);
 					guessesLeft--;
 					//UPDATES HTML IN GUESSES LEFT AND GUESSES SO FAR IN HTML VIA DOM 
