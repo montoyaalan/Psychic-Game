@@ -10,15 +10,15 @@
 
 
 // KEEPS TRACK OF HOW MANY TIMES A LETTER CAN BE USED 
-var lettersAlpha = ["a","b","c",
-"d","e","f",
-"g","h","i",
-"j","k","l",
-"m","n","o",
-"p","q","r",
-"s","t","u",
-"v","w","x",
-"y","z"];
+var lettersAlpha = ["a","A","b","B","c","C",
+"d","D","e","E","f","F",
+"g","G","h","H","i","I",
+"j","J","k","K","l","L",
+"m","M","n","N","o","O",
+"p","P","q","Q","r","R",
+"s","S","t","T","u","U",
+"v","V","w","W","x","X",
+"y","Y","z","Z"];
 
 
 // THIS ARRAY HAS ALL THE POSSIBLE MOVIE CHOICES 
@@ -41,13 +41,13 @@ var movies =[ "scream",
 "paranormalactivity"];
 
 
-//THIS ARRAY IS GOING TO HOLD THE COMPUTERS GUESS OF MOVIE
+//THIS ARRAY IS GOING TO HOLD THE COMPUTERS GUESS FROM MOVIE ARRAY ABOVE 
 var computerGuess = "";
 //THIS ARRAY HOLDS ALL THE LETTERS IN THE COMPUTER GUESS MOVIE
 var lettersInMovie = [];
 //THE NUMBER OF BLANKS IN MOVIE WORD 
 var numBlanks = 0;
-//BLANKS AND SUCCESSFUL GUESSES 
+//BLANKS AND CORRECT GUESSES 
 var blanksAndWins =[];
 //LETTERS OF INCORRECT GUESSES SO FAR 
 var guessesSoFar = [];
@@ -58,17 +58,19 @@ var guessesSoFar = [];
 //MUST START AT ZERO TO ADD TO IN FUNCTIONS BELOW
 var winCount = 0;
 var loseCount = 0;
-//MUST START GUESSES LEFT AT 10 SO I CAN DEDUCT WITH EACH INCORRECT GUESS
+//MUST START GUESSES LEFT AT 10 SO I CAN DEDUCT WITH EACH INCORRECT GUESS IN FUNCTION
 var guessesLeft = 10;
 var rightGuessCounter = 0;
 
 
 //THE WAY THE GAME WORKS IS BECAUSE OF FUNCTIONS
 //video was a good base but could not get game to restart every time the player won or lost 
-// TUTOR CAME IN HEAVILY HERE 
+// TUTOR CAME IN HEAVILY WITH FUNCTIONS 
 
 //ALL FUNCTIONS BELOW 
+//this is where the "magic" happens 
 
+//THE FUNCTION WHERE THE PAGE IS RESET 
 function reset()
 {
 	//THIS IS THE FUNCTION THAT GRABS A MOVIE BY RANDOM (computerGuess)
@@ -85,25 +87,26 @@ function reset()
 	guessesLeft = 10;
 	guessesSoFar =[];
 	blanksAndWins =[];
-	lettersAlpha = ["a","b","c",
-	"d","e","f",
-	"g","h","i",
-	"j","k","l",
-	"m","n","o",
-	"p","q","r",
-	"s","t","u",
-	"v","w","x",
-	"y","z"];
+	lettersAlpha = ["a","A","b","B","c","C",
+			"d","D","e","E","f","F",
+			"g","G","h","H","i","I",
+			"j","J","k","K","l","L",
+			"m","M","n","N","o","O",
+			"p","P","q","Q","r","R",
+			"s","S","t","T","u","U",
+			"v","V","w","W","x","X",
+			"y","Y","z","Z"];
 	test=false;
 	// EVOKING FUNCTION
 	startGame();
 }
 
-
+//BEGINGS THE GAME AFTER THE PLAYER WINS OR LOSES
 function startGame()
 {
 	//CHOOSES MOVIE RANDOMLY FROM MOVIE ARRAY 
 	computerGuess = movies[Math.floor(Math.random() * movies.length)];
+	console.log(computerGuess);
 	//SPLITS THE COMPUTER GUESS INTO INDIVIDUAL LETTERS! pretty much the same function as above 
 	//CANNOT PUT IN DOUBLE QUOTES BC IT CHANGES THE UNDERSCORES TO JUST ONE. MUST ASK WHY THAT IS 
 	lettersInMovie = computerGuess.split('');
@@ -115,18 +118,18 @@ function startGame()
 	guessesLeft = 10;
 	guessesSoFar =[];
 	blanksAndWins =[];
-	lettersAlpha = ["a","b","c",
-					  "d","e","f",
-					  "g","h","i",
-					  "j","k","l",
-					  "m","n","o",
-					  "p","q","r",
-					  "s","t","u",
-					  "v","w","x",
-					  "y","z"];
+	lettersAlpha = ["a","A","b","B","c","C",
+			"d","D","e","E","f","F",
+			"g","G","h","H","i","I",
+			"j","J","k","K","l","L",
+			"m","M","n","N","o","O",
+			"p","P","q","Q","r","R",
+			"s","S","t","T","u","U",
+			"v","V","w","W","x","X",
+			"y","Y","z","Z"];
 
 
-//INSERT LOOP HERE 
+//INSERT LOOP HERE INSIDE FUNCTION----------------
 	//WILL UPDATE UNDERSCORES BASED ON HOW MANY LETTERS ARE IN THE MOVIE WORD
 	// !!!!TUTOR CALLED THIS "POPULATION" MUST GOOGLE THAT TERM FOR JAVASCRIPT !!!!!
 	for(var i = 0; i< numBlanks; i++)
@@ -141,11 +144,6 @@ function startGame()
 	document.getElementById("wins").innerHTML = winCount;
 	document.getElementById("loses").innerHTML = loseCount;
 	document.getElementById("guesses-so-far").innerHTML = guessesSoFar;
-	//TESTING 
-	console.log(computerGuess);
-	console.log(lettersInMovie);
-	console.log(numBlanks);
-	console.log(blanksAndWins);
 }
 
 
@@ -168,7 +166,7 @@ function compareLetters(userKey)
 							document.getElementById("underscore").innerHTML = blanksAndWins.join(" ");
 						}	
 					}
-					//Test / Debug
+					//TESTING
 					console.log(blanksAndWins);
 				}
 				//OR IF THE PLAYERS INPUT (userKey) IS THE WRONG LETTERS (guessesSoFar) IT WILL RUN THIS FUNCTION THAT PUSHES THE PLAYERS INPUT TO GUESSES SO FAR AND
@@ -190,7 +188,7 @@ function compareLetters(userKey)
 //THIS IS THE FUNCTION THAT UPDATES MY COUNTER VARIABLES 
 function winLose()
 {
-	// WHEN ALL UNDERSCORES OF THE MOVIE ARE FILLED WITH CORRECT LETTERS 
+	// WHEN ALL UNDERSCORES OF THE MOVIE(computerGuess) ARE FILLED WITH CORRECT LETTERS 
 	if(rightGuessCounter === numBlanks)
 	{
 		//UPDATING WINS NUMBER IN HTML FILE 
@@ -221,14 +219,14 @@ startGame();
 document.onkeyup = function(event)
 {
 	test = true;
-	var letterGuessed = event.key;
+	var playerGuessed = event.key;
 	for(var i = 0; i < lettersAlpha.length; i++)
 	{	
-		if(letterGuessed === lettersAlpha[i] && test === true)
+		if(playerGuessed === lettersAlpha[i] && test === true)
 		{
 			var spliceDword = lettersAlpha.splice(i,1);
 
-			compareLetters(letterGuessed);
+			compareLetters(playerGuessed);
 			winLose();
 		}
 	}		
